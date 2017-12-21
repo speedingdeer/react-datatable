@@ -1,13 +1,21 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Home from './components/Home';
+import PropTypes from 'prop-types'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Home from './containers/Home';
 
-const Routes = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path='/' component={Home}/>
-    </Switch>
-  </BrowserRouter>
+const Routes = ({ store }) => (
+  <Provider store={store}>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path='/' component={Home}/>
+      </Switch>
+    </BrowserRouter>
+  </Provider>
 )
+
+Routes.propTypes = {
+  store: PropTypes.object.isRequired
+}
 
 export default Routes
