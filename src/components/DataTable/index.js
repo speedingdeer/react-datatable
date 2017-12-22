@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 
@@ -7,22 +7,40 @@ import Cell from './Cell';
 
 import './DataTable.css';
 
-const DataTable = ({columns, data}) => (
-  <div className='data-table'>
-  <Table striped unstackable>
-    <Header columns={columns}/>
-    <Table.Body>
-      {data.map( (d, di) =>
-        <Table.Row key={di}>
-          {columns.map( (c, ci) =>
-            <Cell key={ci} value={d[c.attribute]}/>
-          )}
-        </Table.Row>
-      )}
-    </Table.Body>
-  </Table>
-  </div>
-)
+class DataTable extends Component {
+
+  render() {
+    return (
+      <div className='data-table' ref={(c) => this.elem = c}>
+        <Table striped unstackable>
+          <Header columns={this.props.columns}/>
+          <Table.Body>
+            {this.props.data.map( (d, di) =>
+              <Table.Row key={di}>
+                {this.props.columns.map( (c, ci) =>
+                  <Cell key={ci} value={d[c.attribute]}/>
+                )}
+              </Table.Row>
+            )}
+          </Table.Body>
+        </Table>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+      window.addEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  handleScroll(event) {
+    console.log(this.elem.getBoundingClientRect());
+  }
+
+}
 
 DataTable.propTypes = {
   // label and attribute are required

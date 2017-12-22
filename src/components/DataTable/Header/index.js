@@ -7,10 +7,12 @@ import { Table } from 'semantic-ui-react'
 
 const Header = ({columns}) => (
 
-  <Table.Header>
+  <Table.Header className='header'>
     <Table.Row>
       {columns.map( (c, i) =>
-        <Table.HeaderCell key={i}>{c.label}</Table.HeaderCell>
+        <Table.HeaderCell key={i}>
+          {c.label}
+        </Table.HeaderCell>
       )}
     </Table.Row>
   </Table.Header>
