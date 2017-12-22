@@ -1,27 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { Table } from 'semantic-ui-react';
 
-import { Table } from 'semantic-ui-react'
+import Header from './Header';
+import Cell from './Cell';
 
-import './DataTable.css';
+// import './DataTable.css'; nth yet
 
 const DataTable = ({columns, data}) => (
   
-  <Table celled striped>
-    <Table.Header>
-      <Table.Row>
-        {columns.map( (c, i) =>
-          <Table.HeaderCell key={i}>{c.label}</Table.HeaderCell>
-        )}
-      </Table.Row>
-    </Table.Header>
+  <Table striped>
+    <Header columns={columns}/>
     <Table.Body>
       {data.map( (d, di) =>
         <Table.Row key={di}>
           {columns.map( (c, ci) =>
-            <Table.Cell key={ci}>
-              {d[c.attribute]}
-            </Table.Cell>
+            <Cell key={ci} value={d[c.attribute]}/>
           )}
         </Table.Row>
       )}

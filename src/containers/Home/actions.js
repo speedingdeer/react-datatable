@@ -31,7 +31,7 @@ export function get(data) {
     data: Array(50 + faker.random.number(50)).fill().map((_, i) => { return {
       field_name: faker.name.findName(),
       area_in_hectares: ( 1 + faker.random.number(20) ) / ( 1 + faker.random.number(20) ),
-      active: faker.random.boolean,
+      active: faker.random.boolean(),
       company_name: faker.company.companyName(),
       cultivation_id: i,
       crop_name: faker.name.findName(),

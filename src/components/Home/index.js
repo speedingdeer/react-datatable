@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DataTable from '../DataTable';
 import PropTypes from 'prop-types'
 
-import './Home.css';
+// import './Home.css'; nth yet
 
 
 class Home extends Component {
