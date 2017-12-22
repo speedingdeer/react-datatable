@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
+import { default as home } from './containers/Home/reducer';
+
 
 const reducers = combineReducers({
-  // @TOOD: add reducers here
+  home
 });
 
 export default reducers;

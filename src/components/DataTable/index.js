@@ -1,9 +1,11 @@
 import React from 'react';
+//import PropTypes from 'prop-types'
+
 import { Grid } from 'semantic-ui-react';
 
 import './DataTable.css';
 
-const Header = () => (
+const DataTable = () => (
 
   <Grid verticalAlign='middle' textAlign='center' className='data-table'>
     <Grid.Column>
@@ -13,4 +15,8 @@ const Header = () => (
 
 )
 
-export default Header;
+DataTable.propTypes = {
+
+}
+
+export default DataTable;
