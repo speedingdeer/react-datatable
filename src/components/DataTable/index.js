@@ -5,11 +5,11 @@ import { Table } from 'semantic-ui-react';
 import Header from './Header';
 import Cell from './Cell';
 
-// import './DataTable.css'; nth yet
+import './DataTable.css';
 
 const DataTable = ({columns, data}) => (
-  
-  <Table striped>
+  <div className='data-table'>
+  <Table striped unstackable>
     <Header columns={columns}/>
     <Table.Body>
       {data.map( (d, di) =>
@@ -21,6 +21,7 @@ const DataTable = ({columns, data}) => (
       )}
     </Table.Body>
   </Table>
+  </div>
 )
 
 DataTable.propTypes = {
