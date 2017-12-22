@@ -9,7 +9,7 @@ class Home extends Component {
 
   render() {
     return (
-      <DataTable />
+      <DataTable {...this.props}/>
     );
   }
 

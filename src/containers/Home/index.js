@@ -5,7 +5,8 @@ import { default as HomeComponent } from '../../components/Home'
 
 const mapStateToProps = state => {
   return {
-    // nth, no data needed here yet
+    columns: state.home.columns,
+    data: state.home.data
   }
 }
 
