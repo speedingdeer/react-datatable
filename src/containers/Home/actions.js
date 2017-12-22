@@ -4,8 +4,7 @@ export const HOME_GET = 'HOME_GET';
 
 export function get(data) {
 
-  let size = 50 + faker.random.number(50) // 50 <= size <= 100
-  var a = {
+  return {
     type: HOME_GET,
     columns: [{
       attribute: 'field_name',
@@ -29,7 +28,7 @@ export function get(data) {
       attribute: 'harvest_year',
       label: 'Ernte'
     }],
-    data: Array(size).fill().map((_, i) => { return {
+    data: Array(50 + faker.random.number(50)).fill().map((_, i) => { return {
       field_name: faker.name.findName(),
       area_in_hectares: ( 1 + faker.random.number(20) ) / ( 1 + faker.random.number(20) ),
       active: faker.random.boolean,
@@ -39,5 +38,5 @@ export function get(data) {
       harvest_year: 2000 + faker.random.number(18)
     }})
   }
-  return a;
+
 }
