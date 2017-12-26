@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
+import Measure from 'react-measure'
 
 import Header from './Header';
 import FixedHeader from './FixedHeader';
@@ -12,16 +13,27 @@ class DataTable extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      colums_sizes: {}
+      colums_sizes: {}, // all column sizes are initally unknown
+      table_size: null // unknown
     };
+
     this.onColumnResize = this.onColumnResize.bind(this);
+    this.onResize = this.onResize.bind(this);
+
   }
 
   render() {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
-        <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes}/>
+        <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size}/>
+        // we need to know the table width otherwise can't set the fixed width for table
+
+        <Measure bounds onResize={this.onResize}>
+          {({ measureRef }) =>
+            <div ref={measureRef}>
+
         <Table striped unstackable>
           <Header columns={this.props.columns} onResize={this.onColumnResize}/>
           <Table.Body>
@@ -34,8 +46,16 @@ class DataTable extends Component {
             )}
           </Table.Body>
         </Table>
+
+        </div>
+          }
+        </Measure>
       </div>
     );
+  }
+
+  onResize(data) {
+    this.setState(Object.assign({}, this.state, { table_size: data }));
   }
 
   onColumnResize(data) {
@@ -58,7 +78,9 @@ class DataTable extends Component {
   }
 
   handleScroll(event) {
-    console.log(this.elem.getBoundingClientRect());
+    let rect = this.elem.getBoundingClientRect();
+    // the computed difference between y and top is the translateY for a fixed header and the first column
+    // the computed difference between x and left is the theslateX for a fixed table header and the first column
   }
 
 }
