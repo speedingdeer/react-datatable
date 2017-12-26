@@ -16,7 +16,8 @@ class DataTable extends Component {
 
     this.state = {
       colums_sizes: {}, // all column sizes are initally unknown
-      table_size: null // unknown
+      table_size: null, // unknown
+      rect: null, // uknown
     };
 
     this.onColumnResize = this.onColumnResize.bind(this);
@@ -27,7 +28,7 @@ class DataTable extends Component {
   render() {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
-        <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size}/>
+        <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect}/>
         {/* we need to know the table width otherwise can't set the fixed width for table */}
 
         <Measure bounds onResize={this.onResize}>
@@ -71,14 +72,17 @@ class DataTable extends Component {
 
   componentDidMount() {
       window.addEventListener('scroll', this.handleScroll.bind(this));
+      this.handleScroll()
   }
 
   componentWillUnmount() {
       window.removeEventListener('scroll', this.handleScroll.bind(this));
   }
 
-  handleScroll(event) {
+  handleScroll() {
     let rect = this.elem.getBoundingClientRect();
+    console.log(rect)
+    this.setState(Object.assign({}, this.state, { rect }));
     // the computed difference between y and top is the translateY for a fixed header and the first column
     // the computed difference between x and left is the theslateX for a fixed table header and the first column
   }

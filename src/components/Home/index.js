@@ -13,7 +13,33 @@ class Home extends Component {
     return (
       <Container>
         <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
         <DataTable {...this.props}/>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
+        <h2> The title within a container to give some margin </h2>
       </Container>
     );
   }
