@@ -47,7 +47,6 @@ class DataTable extends Component {
         }
       })
     )
-    console.log(data);
   }
 
   componentDidMount() {

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import Measure from 'react-measure'
-
-
 import { Table } from 'semantic-ui-react'
 
 import './Header.css'
