@@ -28,7 +28,7 @@ class DataTable extends Component {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
         <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size}/>
-        // we need to know the table width otherwise can't set the fixed width for table
+        {/* we need to know the table width otherwise can't set the fixed width for table */}
 
         <Measure bounds onResize={this.onResize}>
           {({ measureRef }) =>
