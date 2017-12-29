@@ -4,8 +4,9 @@ import { Table } from 'semantic-ui-react';
 import Measure from 'react-measure'
 
 import Header from './Header';
-import FixedHeader from './FixedHeader';
 import Cell from './Cell';
+import FixedHeader from './FixedHeader';
+import FixedColumn from './FixedColumn';
 
 import './DataTable.css';
 
@@ -26,25 +27,35 @@ class DataTable extends Component {
 
   }
 
-  fixedHeader() {
+  fixed() {
     // render when all sizes optained
     if(this.props.columns && this.state.colums_sizes && 
       this.props.columns.length === Object.keys(this.state.colums_sizes).length &&
       this.state.table_size && this.state.table_size && this.state.rect_inner) {
       // It might be better to actually pass the whole state if it actually passes all values, it depends on the convention I think
-        return <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+        return (
+          <div>
+            <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+            <FixedColumn columns={this.props.columns} data={this.props.data} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+          </div>
+        )
     }
   }
 
   render() {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
-        {this.fixedHeader()}
+        {this.fixed()}
         {/* We need to know the table width otherwise can't set the fixed width for table */}
         <Measure bounds onResize={this.onResize}>
           {({ measureRef }) =>
 
             <div ref={measureRef}>
+          {/** Note:
+               when try to use 
+               ref={(c) => {this.table = c; measureRef(c) }}
+               it loops the call forever must be some library bug or hitting a weird edge case
+          */}
               <div ref={(c) => this.table = c}>
                 <Table striped unstackable>
                   <Header columns={this.props.columns} onResize={this.onColumnResize}/>
