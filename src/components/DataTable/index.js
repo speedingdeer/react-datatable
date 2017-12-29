@@ -104,6 +104,7 @@ class DataTable extends Component {
 }
 
 DataTable.propTypes = {
+  // @TODO defined then as shape and require them here (make shape.js within DataTable component)
   // label and attribute are required
   columns: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,

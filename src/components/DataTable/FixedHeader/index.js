@@ -29,6 +29,7 @@ const FixedHeader = ({columns, table_size, columns_sizes, rect, rect_inner}) => 
 
 FixedHeader.propTypes = {
   // this check is redundant, it's OK to double check the PropTypes but is shouldn't by just copy pasted
+  // @TODO: Define the columns shape and require it here
   columns: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.string.isRequired,
     attribute: PropTypes.string.isRequired,
