@@ -21,7 +21,9 @@ const FixedHeader = ({columns, table_size, columns_sizes, rect, rect_inner}) => 
           <Table.Row>
             {columns.map( (c, i) =>
               <Table.HeaderCell key={i}>
-                <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}> {c.label} </div>
+                <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}>
+                  <span>{c.label}</span>
+                </div>
               </Table.HeaderCell>
             )}
           </Table.Row>

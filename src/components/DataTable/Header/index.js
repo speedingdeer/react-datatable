@@ -13,7 +13,9 @@ const Header = ({columns, onResize}) => (
         <Table.HeaderCell key={i}>
           <Measure bounds onResize={(contentRect) => { onResize({[c.attribute]: contentRect}) }}>
             {({ measureRef }) =>
-              <div ref={measureRef}> {c.label} </div>
+              <div ref={measureRef}>
+                <span>{c.label}</span>
+              </div>
             }
           </Measure>
         </Table.HeaderCell>

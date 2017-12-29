@@ -4,5 +4,17 @@
     width: 100%;
     height: 100%;
     position: relative;
-    table.ui.table { border-radius: 0px; }
+    table.ui.table {
+        border-radius: 0px;
+        thead tr th {
+            padding-left: 0;
+            padding-right: 0;
+            div {
+                span {
+                    padding-left: .75em;
+                    padding-right: .75em;
+                }
+            }
+        }
+    }
 }

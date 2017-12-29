@@ -20,38 +20,31 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, rect_inner
   }
 
   return (
-    <div className='fixed-column' style={style()}>
-      <Table striped unstackable className='table-header'>
+    <div className='fixed-column' style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`, ...style()}}>
+      <Table striped unstackable className='column-header'>
         <Table.Header>
           <Table.Row>
-            {columns.slice(0,1).map( (c, i) =>
+            {columns.map( (c, i) =>
               <Table.HeaderCell key={i}>
-                <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}> {c.label} </div>
+                <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}> <span>{c.label}</span> </div>
               </Table.HeaderCell>
             )}
           </Table.Row>
         </Table.Header>
       </Table>
-      <Table striped unstackable className='table-body'>
-        <Table.Header>
-          <Table.Row>
-            {columns.slice(0,1).map( (c, i) =>
-              <Table.HeaderCell key={i}>
-                <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}> {c.label} </div>
-              </Table.HeaderCell>
+      <div className='column-body'>
+        <Table striped unstackable style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`, ...style()}}>
+          <Table.Body>
+            {data.map( (d, di) =>
+              <Table.Row key={di}>
+                {columns.slice(0,1).map( (c, ci) =>
+                  <Cell key={ci} value={d[c.attribute]}/>
+                )}
+              </Table.Row>
             )}
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {data.map( (d, di) =>
-            <Table.Row key={di}>
-              {columns.slice(0,1).map( (c, ci) =>
-                <Cell key={ci} value={d[c.attribute]}/>
-              )}
-            </Table.Row>
-          )}
-        </Table.Body>
-      </Table>
+          </Table.Body>
+        </Table>
+      </div>
     </div>
   )
 
