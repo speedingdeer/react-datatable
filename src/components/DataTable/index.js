@@ -43,22 +43,24 @@ class DataTable extends Component {
         {/* We need to know the table width otherwise can't set the fixed width for table */}
         <Measure bounds onResize={this.onResize}>
           {({ measureRef }) =>
+
             <div ref={measureRef}>
-            <div ref={(c) => this.table = c}>
-        <Table striped unstackable>
-          <Header columns={this.props.columns} onResize={this.onColumnResize}/>
-          <Table.Body>
-            {this.props.data.map( (d, di) =>
-              <Table.Row key={di}>
-                {this.props.columns.map( (c, ci) =>
-                  <Cell key={ci} value={d[c.attribute]}/>
-                )}
-              </Table.Row>
-            )}
-          </Table.Body>
-        </Table>
-        </div>
-        </div>
+              <div ref={(c) => this.table = c}>
+                <Table striped unstackable>
+                  <Header columns={this.props.columns} onResize={this.onColumnResize}/>
+                  <Table.Body>
+                    {this.props.data.map( (d, di) =>
+                      <Table.Row key={di}>
+                        {this.props.columns.map( (c, ci) =>
+                          <Cell key={ci} value={d[c.attribute]}/>
+                        )}
+                      </Table.Row>
+                    )}
+                  </Table.Body>
+                </Table>
+              </div>
+            </div>
+
           }
         </Measure>
       </div>
