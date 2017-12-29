@@ -6,8 +6,8 @@ import './FixedHeader.css'
 
 const FixedHeader = ({columns, table_size, columns_sizes, rect, rect_inner}) => {
 
-  if(rect.top > 0)  { return ('') } // display only if fixed
-  if(rect.top + rect.height < 0) { return ('') } // display only if doesn't scroll over the table body
+  if(rect.top > 0)  { return ('') } // display only if window scrolled over the data table header
+  if(rect.top + rect.height < 0) { return ('') } // display only if doesn't scroll over the table body (if not scollerd too far)
 
   return (
     <div className='fixed-header' style={{width: `${table_size ? table_size.entry.width : 0}px`}}>
