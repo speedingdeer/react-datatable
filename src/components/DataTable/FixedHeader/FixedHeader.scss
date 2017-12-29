@@ -1,7 +1,9 @@
 .data-table {
-    .fixed-header-table {
+    .fixed-header {
         position: fixed;
+        overflow: hidden;
         z-index: 3;
         top: 0;
+        table { border-radius: 0px;}
     }
 }

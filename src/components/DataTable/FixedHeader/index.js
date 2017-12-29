@@ -4,28 +4,30 @@ import { Table } from 'semantic-ui-react'
 
 import './FixedHeader.css'
 
-const FixedHeader = ({columns, table_size, columns_sizes, rect}) => {
+const FixedHeader = ({columns, table_size, columns_sizes, rect, rect_inner}) => {
 
-
-  function display() {
-    if(!rect || !table_size)  { return 'none'; }
-    if(rect.top > 0)  { return 'none'; }
-    if(rect.top + rect.height < 0) { return 'none' }
-    return 'table';
+  if(!rect || !table_size || !rect_inner) {
+    // display only if all sizes present
+    return('');
   }
 
+  if(rect.top > 0)  { return ('') } // display only if fixed
+  if(rect.top + rect.height < 0) { return ('') } // display only if doesn't scroll over the table body
+
   return (
-    <Table striped unstackable className='fixed-header-table' style={{width: `${table_size ? table_size.entry.width : 0}px`, display: `${display()}`}}>
-      <Table.Header>
-        <Table.Row>
-          {columns.map( (c, i) =>
-            <Table.HeaderCell key={i} style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}>
-              {c.label}
-            </Table.HeaderCell>
-          )}
-        </Table.Row>
-      </Table.Header>
-    </Table>
+    <div className='fixed-header' style={{width: `${table_size ? table_size.entry.width : 0}px`}}>
+      <Table striped unstackable style={{marginLeft: `${rect_inner.x - rect.x}px`}}>
+        <Table.Header>
+          <Table.Row>
+            {columns.map( (c, i) =>
+              <Table.HeaderCell key={i}>
+                <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}>{c.label}</div>
+              </Table.HeaderCell>
+            )}
+          </Table.Row>
+        </Table.Header>
+      </Table>
+    </div>
   )
 }
 

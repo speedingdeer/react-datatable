@@ -28,13 +28,13 @@ class DataTable extends Component {
   render() {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
-        <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect}/>
+        <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
         {/* we need to know the table width otherwise can't set the fixed width for table */}
 
         <Measure bounds onResize={this.onResize}>
           {({ measureRef }) =>
             <div ref={measureRef}>
-
+            <div ref={(c) => this.table = c}>
         <Table striped unstackable>
           <Header columns={this.props.columns} onResize={this.onColumnResize}/>
           <Table.Body>
@@ -47,7 +47,7 @@ class DataTable extends Component {
             )}
           </Table.Body>
         </Table>
-
+        </div>
         </div>
           }
         </Measure>
@@ -72,17 +72,20 @@ class DataTable extends Component {
 
   componentDidMount() {
       window.addEventListener('scroll', this.handleScroll.bind(this));
+      this.elem.addEventListener('scroll', this.handleScroll.bind(this));
       this.handleScroll()
   }
 
   componentWillUnmount() {
       window.removeEventListener('scroll', this.handleScroll.bind(this));
+      this.elem.removeEventListener('scroll', this.handleScroll.bind(this));
   }
 
-  handleScroll() {
+  handleScroll(evt) {
     let rect = this.elem.getBoundingClientRect();
+    let rect_inner = this.table.getBoundingClientRect();
     console.log(rect)
-    this.setState(Object.assign({}, this.state, { rect }));
+    this.setState(Object.assign({}, this.state, { rect, rect_inner }));
     // the computed difference between y and top is the translateY for a fixed header and the first column
     // the computed difference between x and left is the theslateX for a fixed table header and the first column
   }
