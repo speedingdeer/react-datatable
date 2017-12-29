@@ -26,13 +26,21 @@ class DataTable extends Component {
 
   }
 
+  fixedHeader() {
+    // render when all sizes optained
+    if(this.props.columns && this.state.colums_sizes && 
+      this.props.columns.length === Object.keys(this.state.colums_sizes).length &&
+      this.state.table_size && this.state.table_size && this.state.rect_inner) {
+      // It might be better to actually pass the whole state if it actually passes all values, it depends on the convention I think
+        return <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+    }
+  }
+
   render() {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
-        {/* It might be better to actually pass the whole state if it actually passes all values, it depends on the convention I think*/}
-        <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+        {this.fixedHeader()}
         {/* We need to know the table width otherwise can't set the fixed width for table */}
-
         <Measure bounds onResize={this.onResize}>
           {({ measureRef }) =>
             <div ref={measureRef}>
