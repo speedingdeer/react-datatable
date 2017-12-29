@@ -3,6 +3,21 @@
         position: fixed;
         overflow: hidden;
         z-index: 3;
-        table { border-radius: 0px;}
+        top: 0;
+        .header-top {
+            position: absolute;
+            border-bottom: 0;
+        }
+        table { margin: 0; }
+        .table-header {
+            border-bottom: none;
+        }
+        .table-body {
+            overflow: hidden;
+            table {
+                border-top: none;
+                thead { display: none; }
+            }
+        }
     }
 }

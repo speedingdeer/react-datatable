@@ -9,12 +9,33 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, rect_inner
 
   // display only if fixed
 
+  // render the full table copy to scale properly but display only the first column by its width 
+  function style() {
+    let style = { position: 'fixed' };
+    if (rect.y >= 0) {
+      style.position = 'absolute'
+    }
+    if(rect.top + rect.height < 0)  { style.display = 'none'; } // same thing as fixed-header, need to unify it
+    return style;
+  }
+
   return (
-    <div className='fixed-column' style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`}}>
-      <Table striped unstackable>
+    <div className='fixed-column' style={style()}>
+      <Table striped unstackable className='table-header'>
         <Table.Header>
           <Table.Row>
-            {columns.map( (c, i) =>
+            {columns.slice(0,1).map( (c, i) =>
+              <Table.HeaderCell key={i}>
+                <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}> {c.label} </div>
+              </Table.HeaderCell>
+            )}
+          </Table.Row>
+        </Table.Header>
+      </Table>
+      <Table striped unstackable className='table-body'>
+        <Table.Header>
+          <Table.Row>
+            {columns.slice(0,1).map( (c, i) =>
               <Table.HeaderCell key={i}>
                 <div style={{width: `${columns_sizes[c.attribute] ? columns_sizes[c.attribute].entry.width : 0}px`}}> {c.label} </div>
               </Table.HeaderCell>
@@ -24,7 +45,7 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, rect_inner
         <Table.Body>
           {data.map( (d, di) =>
             <Table.Row key={di}>
-              {columns.map( (c, ci) =>
+              {columns.slice(0,1).map( (c, ci) =>
                 <Cell key={ci} value={d[c.attribute]}/>
               )}
             </Table.Row>
