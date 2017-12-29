@@ -18,6 +18,7 @@ class DataTable extends Component {
       colums_sizes: {}, // all column sizes are initally unknown
       table_size: null, // unknown
       rect: null, // uknown
+      rect_inner: null // uknown
     };
 
     this.onColumnResize = this.onColumnResize.bind(this);
@@ -28,8 +29,9 @@ class DataTable extends Component {
   render() {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
+        {/* It might be better to actually pass the whole state if it actually passes all values, it depends on the convention I think*/}
         <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
-        {/* we need to know the table width otherwise can't set the fixed width for table */}
+        {/* We need to know the table width otherwise can't set the fixed width for table */}
 
         <Measure bounds onResize={this.onResize}>
           {({ measureRef }) =>
@@ -56,6 +58,8 @@ class DataTable extends Component {
   }
 
   onResize(data) {
+    // This will actually trigger X times for X columns
+    // @TODO: try to optmize it to change once on table resize or something like this
     this.setState(Object.assign({}, this.state, { table_size: data }));
   }
 
@@ -84,7 +88,6 @@ class DataTable extends Component {
   handleScroll(evt) {
     let rect = this.elem.getBoundingClientRect();
     let rect_inner = this.table.getBoundingClientRect();
-    console.log(rect)
     this.setState(Object.assign({}, this.state, { rect, rect_inner }));
     // the computed difference between y and top is the translateY for a fixed header and the first column
     // the computed difference between x and left is the theslateX for a fixed table header and the first column
