@@ -8,27 +8,17 @@ import './FixedColumn.css'
 
 const FixedColumn = ({columns, data, table_size, columns_sizes, rect, rect_inner}) => {
 
-  // display only if fixed
-
-  // render the full table copy to scale properly but display only the first column by its width 
-  function style() {
-    let style = { position: 'fixed' };
-    return style;
-  }
-
   function marginTop() {
-    if((rect.height + rect.y) < 0) return 0; // This might be redundant
     return rect.y;
   }
 
   function headerMarginTop() {
-    if(rect.y < 0) return 0; // This might be redundant
-    if((rect.height + rect.y) < 0) return 0; // This might be redundant
+    if(rect.y < 0) return 0;
     return rect.y;
   }
 
   return (
-    <div className='fixed-column' style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`, ...style()}}>
+    <div className='fixed-column' style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`, position: 'fixed'}}>
       <Table striped unstackable className='column-header' style={{marginTop: headerMarginTop()}}>
         <Table.Header>
           <Table.Row>

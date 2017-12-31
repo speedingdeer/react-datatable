@@ -109,6 +109,7 @@ class DataTable extends Component {
   handleScroll(evt) {
     let rect = this.elem.getBoundingClientRect();
     let rect_inner = this.table.getBoundingClientRect();
+    console.log(evt)
     this.setState(Object.assign({}, this.state, { rect, rect_inner }));
     // the computed difference between y and top is the translateY for a fixed header and the first column
     // the computed difference between x and left is the theslateX for a fixed table header and the first column
