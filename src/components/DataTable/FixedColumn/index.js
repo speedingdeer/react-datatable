@@ -6,7 +6,7 @@ import Header from '../Header';
 
 import './FixedColumn.css'
 
-const FixedColumn = ({columns, data, table_size, columns_sizes, rect, rect_inner}) => {
+const FixedColumn = ({columns, data, table_size, columns_sizes, rect}) => {
 
   function marginTop() {
     return rect.y;
@@ -61,7 +61,6 @@ FixedColumn.propTypes = {
   table_size: PropTypes.object.isRequired,
   columns_sizes: PropTypes.object.isRequired,
   rect: PropTypes.object.isRequired,
-  rect_inner: PropTypes.object.isRequired
 }
 
 export default FixedColumn;
