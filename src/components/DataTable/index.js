@@ -31,12 +31,14 @@ class DataTable extends Component {
     // render when all sizes optained
     if(this.props.columns && this.state.colums_sizes && 
       this.props.columns.length === Object.keys(this.state.colums_sizes).length &&
-      this.state.table_size && this.state.table_size && this.state.rect_inner) {
+      this.state.table_size && this.state.table_size && this.state.rect &&this.state.rect_inner) {
       // It might be better to actually pass the whole state if it actually passes all values, it depends on the convention I think
         return (
           <div>
             <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
-            <FixedColumn columns={this.props.columns} data={this.props.data} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+            {this.state.rect.x !== this.state.rect_inner.x &&
+              <FixedColumn columns={this.props.columns} data={this.props.data} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+            }
           </div>
         )
     }
@@ -109,7 +111,6 @@ class DataTable extends Component {
   handleScroll(evt) {
     let rect = this.elem.getBoundingClientRect();
     let rect_inner = this.table.getBoundingClientRect();
-    console.log(evt)
     this.setState(Object.assign({}, this.state, { rect, rect_inner }));
     // the computed difference between y and top is the translateY for a fixed header and the first column
     // the computed difference between x and left is the theslateX for a fixed table header and the first column
