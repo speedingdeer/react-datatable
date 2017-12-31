@@ -5,9 +5,10 @@
         z-index: 3;
         top: 0;
         .column-header {
-            margin-bottom: 0;
-            border-bottom: 0;
             position: absolute;
+            border-right: none;
+            border-bottom: none;
+            position: fixed;
         }
         .column-body {
             overflow: hidden;

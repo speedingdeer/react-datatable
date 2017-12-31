@@ -13,13 +13,22 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect}) => {
   }
 
   function headerMarginTop() {
-    if(rect.y < 0) return 0;
-    return rect.y;
+    console.log(rect);
+    
+    return 0;
+    // if only 
+  }
+
+  function headerStyle() {
+    let style = { top: 0 };
+    if(rect.y > 0) style.top = rect.y;
+    if(rect.top > 0 || rect.top + rect.height < 0)  { style.display = 'none'; }
+    return style
   }
 
   return (
     <div className='fixed-column' style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`, position: 'fixed'}}>
-      <Table striped unstackable className='column-header' style={{marginTop: headerMarginTop()}}>
+      <Table striped unstackable className='column-header' style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`, ...headerStyle()}}>
         <Table.Header>
           <Table.Row>
             {columns.slice(0,1).map( (c, i) =>

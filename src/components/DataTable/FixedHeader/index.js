@@ -12,7 +12,7 @@ const FixedHeader = ({columns, table_size, columns_sizes, rect, rect_inner}) => 
 
   // display only if window scrolled over the data table header
   // display only if doesn't scroll over the table body (if not scollerd too far)
-  if(rect.top > 0 || rect.top + rect.height < 0)  { style.display = 'none'; }  
+  if(rect.top > 0 || rect.top + rect.height < 0)  { style.display = 'none'; }
 
   return (
     <div className='fixed-header' style={{width: `${table_size ? table_size.entry.width : 0}px`, ...style}}>
