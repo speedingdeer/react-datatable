@@ -7,13 +7,12 @@
         .column-header {
             margin-bottom: 0;
             border-bottom: 0;
+            position: absolute;
         }
         .column-body {
             overflow: hidden;
             position: relative;
-            table {
-                border-top: 0;
-            }
+            z-index: -1;
         }
     }
 }

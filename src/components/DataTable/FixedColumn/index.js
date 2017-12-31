@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
 import Cell from '../Cell';
+import Header from '../Header';
 
 import './FixedColumn.css'
 
@@ -12,16 +13,23 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, rect_inner
   // render the full table copy to scale properly but display only the first column by its width 
   function style() {
     let style = { position: 'fixed' };
-    if (rect.y >= 0) {
-      style.position = 'absolute'
-    }
-    if(rect.top + rect.height < 0)  { style.display = 'none'; } // same thing as fixed-header, need to unify it
     return style;
+  }
+
+  function marginTop() {
+    if((rect.height + rect.y) < 0) return 0; // This might be redundant
+    return rect.y;
+  }
+
+  function headerMarginTop() {
+    if(rect.y < 0) return 0; // This might be redundant
+    if((rect.height + rect.y) < 0) return 0; // This might be redundant
+    return rect.y;
   }
 
   return (
     <div className='fixed-column' style={{width: `${columns_sizes[columns[0].attribute] ? columns_sizes[columns[0].attribute].entry.width : 0}px`, ...style()}}>
-      <Table striped unstackable className='column-header'>
+      <Table striped unstackable className='column-header' style={{marginTop: headerMarginTop()}}>
         <Table.Header>
           <Table.Row>
             {columns.slice(0,1).map( (c, i) =>
@@ -32,12 +40,13 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, rect_inner
           </Table.Row>
         </Table.Header>
       </Table>
-      <div className='column-body'>
+      <div className='column-body' style={{marginTop: `${marginTop()}px`, width: `${table_size.entry.width}px`}}>
         <Table striped unstackable>
+          <Header columns={columns} onResize={() => {}}/>
           <Table.Body>
             {data.map( (d, di) =>
               <Table.Row key={di}>
-                {columns.slice(0,1).map( (c, ci) =>
+                {columns.map( (c, ci) =>
                   <Cell key={ci} value={d[c.attribute]}/>
                 )}
               </Table.Row>
