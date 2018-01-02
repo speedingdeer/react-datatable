@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
-import Cell from '../Cell';
+import Row from '../Row';
 import Header from '../Header';
 
 import './FixedColumn.css'
@@ -14,10 +14,6 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, onRowEnter
     if(rect.y > 0) style.top = rect.y;
     if(rect.top > 0 || rect.top + rect.height < 0)  { style.display = 'none'; }
     return style
-  }
-
-  function rowClassName(idx) {
-    if(idx === hovered) { return 'hovered'; }
   }
 
   return (
@@ -35,18 +31,14 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, onRowEnter
       </Table>
       <div className='column-body' style={{marginTop: `${rect.y}px`, width: `${table_size.entry.width}px`}}>
         <Table striped unstackable>
-          <Header columns={columns} onResize={() => {}}/>
+          <Header columns={columns}/>
           <Table.Body>
             {data.map( (d, di) =>
-              <Table.Row key={di} 
-                className={rowClassName(di)}
-                onMouseEnter={() => {onRowEnter(di)}}
-                onMouseLeave={() => {onRowLeave(di)}}
-              >
-                {columns.map( (c, ci) =>
-                  <Cell key={ci} value={d[c.attribute]}/>
-                )}
-              </Table.Row>
+              <Row key={di}
+                record={d} columns={columns} idx={di}
+                onMouseEnter={onRowEnter}
+                onMouseLeave={onRowLeave}
+                hovered={hovered} />
             )}
           </Table.Body>
         </Table>
@@ -70,6 +62,7 @@ FixedColumn.propTypes = {
   rect: PropTypes.object.isRequired,
   onRowEnter: PropTypes.func.isRequired,
   onRowLeave: PropTypes.func.isRequired,
+  hovered: PropTypes.number.isRequired,
 }
 
 export default FixedColumn;

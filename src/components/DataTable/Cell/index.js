@@ -1,9 +1,6 @@
 import React from 'react';
 import { Table, Checkbox } from 'semantic-ui-react';
 
-// import './Cell.css'; nth yet
-
-
 function booleanCell(value) {
   return (
     <Checkbox toggle checked={value}/>
@@ -20,6 +17,5 @@ const Cell = ({value}) => {
   )
 
 }
-
 
 export default Cell;

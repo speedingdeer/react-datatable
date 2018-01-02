@@ -4,11 +4,13 @@ import { Table } from 'semantic-ui-react';
 import Measure from 'react-measure'
 
 import Header from './Header';
-import Cell from './Cell';
+import Row from './Row';
 import FixedHeader from './FixedHeader';
 import FixedColumn from './FixedColumn';
 
 import './DataTable.css';
+
+const HOVER_OUT = -1;
 
 class DataTable extends Component {
 
@@ -16,11 +18,11 @@ class DataTable extends Component {
     super(props);
 
     this.state = {
-      colums_sizes: {}, // all column sizes are initally unknown
+      colums_sizes: {}, // all columns sizes are initally unknown
       table_size: null, // unknown
       rect: null, // uknown
       rect_inner: null, // uknown
-      hovered: null // uknown
+      hovered: HOVER_OUT // the indexed of hovered row - unknown by default
     };
 
     this.onColumnResize = this.onColumnResize.bind(this);
@@ -74,15 +76,11 @@ class DataTable extends Component {
                   <Header columns={this.props.columns} onResize={this.onColumnResize}/>
                   <Table.Body>
                     {this.props.data.map( (d, di) =>
-                      <Table.Row key={di}
-                        onMouseEnter={() => { this.onRowEnter(di) }}
-                        onMouseLeave={() => { this.onRowLeave(di) }}
-                        className={this.rowClassName(di)}
-                      >
-                        {this.props.columns.map( (c, ci) =>
-                          <Cell key={ci} value={d[c.attribute]}/>
-                        )}
-                      </Table.Row>
+                      <Row key={di}
+                        record={d} columns={this.props.columns} idx={di}
+                        onMouseEnter={this.onRowEnter}
+                        onMouseLeave={this.onRowLeave}
+                        hovered={this.state.hovered} />
                     )}
                   </Table.Body>
                 </Table>
@@ -106,7 +104,7 @@ class DataTable extends Component {
   }
 
   onRowLeave(idx) {
-    this.setState(Object.assign({}, this.state, { hovered: null }));
+    this.setState(Object.assign({}, this.state, { hovered: HOVER_OUT }));
   }
 
   onColumnResize(data) {
