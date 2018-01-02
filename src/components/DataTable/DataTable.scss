@@ -1,3 +1,5 @@
+$green: #7cda24; // this could go to colors.scss
+
 .data-table {
     // fill anything placed withing and scoll verically and horizontally
     overflow: auto;
@@ -5,6 +7,9 @@
     height: 100%;
     position: relative;
     table.ui.table {
+        tr.hovered {
+            background: $green !important;
+        }
         border-radius: 0px;
         thead tr th {
             padding-left: 0;

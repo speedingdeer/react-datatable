@@ -19,12 +19,19 @@ class DataTable extends Component {
       colums_sizes: {}, // all column sizes are initally unknown
       table_size: null, // unknown
       rect: null, // uknown
-      rect_inner: null // uknown
+      rect_inner: null, // uknown
+      hovered: null // uknown
     };
 
     this.onColumnResize = this.onColumnResize.bind(this);
     this.onResize = this.onResize.bind(this);
+    this.onRowEnter = this.onRowEnter.bind(this);
+    this.onRowLeave = this.onRowLeave.bind(this);
 
+  }
+
+  rowClassName(idx) {
+    if(idx === this.state.hovered) { return 'hovered'; }
   }
 
   fixed() {
@@ -37,7 +44,11 @@ class DataTable extends Component {
           <div>
             <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
             {this.state.rect.x !== this.state.rect_inner.x &&
-              <FixedColumn columns={this.props.columns} data={this.props.data} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect}/>
+              <FixedColumn columns={this.props.columns} data={this.props.data} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} 
+                onRowEnter={this.onRowEnter}
+                onRowLeave={this.onRowLeave}
+                hovered={this.state.hovered}
+              />
             }
           </div>
         )
@@ -63,7 +74,11 @@ class DataTable extends Component {
                   <Header columns={this.props.columns} onResize={this.onColumnResize}/>
                   <Table.Body>
                     {this.props.data.map( (d, di) =>
-                      <Table.Row key={di}>
+                      <Table.Row key={di}
+                        onMouseEnter={() => { this.onRowEnter(di) }}
+                        onMouseLeave={() => { this.onRowLeave(di) }}
+                        className={this.rowClassName(di)}
+                      >
                         {this.props.columns.map( (c, ci) =>
                           <Cell key={ci} value={d[c.attribute]}/>
                         )}
@@ -84,6 +99,14 @@ class DataTable extends Component {
     // This will actually trigger X times for X columns
     // @TODO: try to optmize it to change once on table resize or something like this
     this.setState(Object.assign({}, this.state, { table_size: data }));
+  }
+
+  onRowEnter(idx) {
+    this.setState(Object.assign({}, this.state, { hovered: idx }));
+  }
+
+  onRowLeave(idx) {
+    this.setState(Object.assign({}, this.state, { hovered: null }));
   }
 
   onColumnResize(data) {

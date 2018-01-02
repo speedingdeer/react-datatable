@@ -6,7 +6,7 @@ import Header from '../Header';
 
 import './FixedColumn.css'
 
-const FixedColumn = ({columns, data, table_size, columns_sizes, rect}) => {
+const FixedColumn = ({columns, data, table_size, columns_sizes, rect, onRowEnter, onRowLeave, hovered}) => {
 
 
   function headerStyle() {
@@ -14,6 +14,10 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect}) => {
     if(rect.y > 0) style.top = rect.y;
     if(rect.top > 0 || rect.top + rect.height < 0)  { style.display = 'none'; }
     return style
+  }
+
+  function rowClassName(idx) {
+    if(idx === hovered) { return 'hovered'; }
   }
 
   return (
@@ -34,7 +38,11 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect}) => {
           <Header columns={columns} onResize={() => {}}/>
           <Table.Body>
             {data.map( (d, di) =>
-              <Table.Row key={di}>
+              <Table.Row key={di} 
+                className={rowClassName(di)}
+                onMouseEnter={() => {onRowEnter(di)}}
+                onMouseLeave={() => {onRowLeave(di)}}
+              >
                 {columns.map( (c, ci) =>
                   <Cell key={ci} value={d[c.attribute]}/>
                 )}
@@ -60,6 +68,8 @@ FixedColumn.propTypes = {
   table_size: PropTypes.object.isRequired,
   columns_sizes: PropTypes.object.isRequired,
   rect: PropTypes.object.isRequired,
+  onRowEnter: PropTypes.func.isRequired,
+  onRowLeave: PropTypes.func.isRequired,
 }
 
 export default FixedColumn;
