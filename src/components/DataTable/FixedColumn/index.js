@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
 import Row from '../Row';
 import Header from '../Header';
+import { columns as pt_columns } from '../proptypes';
 
 import './FixedColumn.css'
 
@@ -49,12 +50,7 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect, onRowEnter
 }
 
 FixedColumn.propTypes = {
-  // this check is redundant, it's OK to double check the PropTypes but is shouldn't by just copy pasted
-  // @TODO: Define the columns shape and require it here
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    attribute: PropTypes.string.isRequired,
-  })).isRequired,
+  columns: pt_columns.isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   // @TODO: Define the rect / size PropTypes.shape and require it here
   table_size: PropTypes.object.isRequired,

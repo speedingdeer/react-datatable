@@ -8,6 +8,8 @@ import Row from './Row';
 import FixedHeader from './FixedHeader';
 import FixedColumn from './FixedColumn';
 
+import {columns as pt_columns} from './proptypes';
+
 import './DataTable.css';
 
 const HOVER_OUT = -1;
@@ -91,8 +93,6 @@ class DataTable extends Component {
   }
 
   onResize(data) {
-    // This will actually trigger X times for X columns
-    // @TODO: try to optmize it to change once on table resize or something like this
     this.setState(Object.assign({}, this.state, { table_size: data }));
   }
 
@@ -115,6 +115,15 @@ class DataTable extends Component {
     )
   }
 
+  onScroll(evt) {
+    if(!this.elem || !this.table) return; // make sure it's initialized first
+    let rect = this.elem.getBoundingClientRect();
+    let rect_inner = this.table.getBoundingClientRect();
+    this.setState(Object.assign({}, this.state, { rect, rect_inner }));
+    // the computed difference between y and top is the translateY for a fixed header and the first column
+    // the computed difference between x and left is the theslateX for a fixed table header and the first column
+  }
+
   componentDidMount() {
       window.addEventListener('scroll', this.onScroll.bind(this));
       this.elem.addEventListener('scroll', this.onScroll.bind(this));
@@ -126,24 +135,10 @@ class DataTable extends Component {
       this.elem.removeEventListener('scroll', this.onScroll.bind(this));
   }
 
-  onScroll(evt) {
-    if(!this.elem || !this.table) return; // make sure it's initialized first
-    let rect = this.elem.getBoundingClientRect();
-    let rect_inner = this.table.getBoundingClientRect();
-    this.setState(Object.assign({}, this.state, { rect, rect_inner }));
-    // the computed difference between y and top is the translateY for a fixed header and the first column
-    // the computed difference between x and left is the theslateX for a fixed table header and the first column
-  }
-
 }
 
 DataTable.propTypes = {
-  // @TODO defined then as shape and require them here (make shape.js within DataTable component)
-  // label and attribute are required
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    attribute: PropTypes.string.isRequired
-  })).isRequired,
+  columns: pt_columns.isRequired,
   // data can be any array of objects
   // it's fine if they are empty (will appear as empty row, but they can't be null or undefiend etc.)
   data: PropTypes.arrayOf(PropTypes.object).isRequired

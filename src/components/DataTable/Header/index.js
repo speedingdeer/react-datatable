@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 import { Table } from 'semantic-ui-react';
+import { columns as pt_columns } from '../proptypes';
 
 import './Header.css'
 
@@ -42,10 +43,7 @@ const Header = ({columns, onResize}) => {
 
 Header.propTypes = {
   // this check is redundant, it's OK to double check the PropTypes but is shouldn't by just copy pasted
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    attribute: PropTypes.string.isRequired,
-  })).isRequired,
+  columns: pt_columns.isRequired,
   onResize: PropTypes.func
 
 }

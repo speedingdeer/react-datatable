@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import Cell from '../Cell';
+import { columns as pt_columns } from '../proptypes';
 
 
 const Row = ({record, columns, idx, onMouseEnter, onMouseLeave, hovered}) => {
@@ -29,10 +30,7 @@ const Row = ({record, columns, idx, onMouseEnter, onMouseLeave, hovered}) => {
 
 Row.propTypes = {
   record: PropTypes.object.isRequired,
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    attribute: PropTypes.string.isRequired,
-  })).isRequired,
+  columns: pt_columns.isRequired,
   idx: PropTypes.number.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
