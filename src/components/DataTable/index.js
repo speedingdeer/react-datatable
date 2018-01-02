@@ -121,17 +121,18 @@ class DataTable extends Component {
   }
 
   componentDidMount() {
-      window.addEventListener('scroll', this.handleScroll.bind(this));
-      this.elem.addEventListener('scroll', this.handleScroll.bind(this));
-      this.handleScroll()
+      window.addEventListener('scroll', this.onScroll.bind(this));
+      this.elem.addEventListener('scroll', this.onScroll.bind(this));
+      this.onScroll()
   }
 
   componentWillUnmount() {
-      window.removeEventListener('scroll', this.handleScroll.bind(this));
-      this.elem.removeEventListener('scroll', this.handleScroll.bind(this));
+      window.removeEventListener('scroll', this.onScroll.bind(this));
+      this.elem.removeEventListener('scroll', this.onScroll.bind(this));
   }
 
-  handleScroll(evt) {
+  onScroll(evt) {
+    if(!this.elem || !this.table) return; // make sure it's initialized first
     let rect = this.elem.getBoundingClientRect();
     let rect_inner = this.table.getBoundingClientRect();
     this.setState(Object.assign({}, this.state, { rect, rect_inner }));

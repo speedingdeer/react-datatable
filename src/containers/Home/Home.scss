@@ -1,6 +1,10 @@
-// mind to depend on custom build
-// @import '../../../node_modules/semantic-ui-less/themes/default/globals/site.variables';
-
 .container.home {
-
+    padding: 2rem;
+    h2 {
+        img { display: inline-block; }
+        text-align: center;
+    }
+    .container.text {
+        margin-top: 4rem; 
+    }
 }
