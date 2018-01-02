@@ -8,7 +8,7 @@ import Row from './Row';
 import FixedHeader from './FixedHeader';
 import FixedColumn from './FixedColumn';
 
-import {columns as pt_columns} from './proptypes';
+import { columns as pt_columns } from './proptypes';
 
 import './DataTable.css';
 
@@ -39,10 +39,11 @@ class DataTable extends Component {
   }
 
   fixed() {
+
     // render when all sizes received
     if(this.props.columns && this.state.columns_sizes && 
       this.props.columns.length === Object.keys(this.state.columns_sizes).length &&
-      this.state.table_size && this.state.table_size && this.state.rect &&this.state.rect_inner) {
+      this.state.table_size && this.state.table_size && this.state.rect && this.state.rect_inner) {
 
         return (
           <div>
@@ -61,7 +62,7 @@ class DataTable extends Component {
       <div className='data-table' ref={(c) => this.elem = c}>
         {this.fixed()}
         {/* We need to know the table width otherwise can't set the fixed width for table */}
-        <Measure bounds onResize={this.onResize}>
+        <Measure entry onResize={this.onResize}>
           {({ measureRef }) =>
 
             <div ref={measureRef}>

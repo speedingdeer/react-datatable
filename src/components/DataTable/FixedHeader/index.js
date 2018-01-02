@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types'
-import { Table } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
+import { Table } from 'semantic-ui-react';
 import { columns as pt_columns } from '../proptypes';
 
 import './FixedHeader.css'

@@ -11,7 +11,7 @@ const Header = ({columns, onResize}) => {
   function cell(c) {
     if (onResize) {
       return (
-        <Measure bounds onResize={(contentRect) => { onResize({[c.attribute]: contentRect}) }}>
+        <Measure entry onResize={(contentRect) => { onResize({[c.attribute]: contentRect}) }}>
           {({ measureRef }) =>
             <div ref={measureRef}>
               <span>{c.label}</span>
