@@ -8,16 +8,6 @@ import './FixedColumn.css'
 
 const FixedColumn = ({columns, data, table_size, columns_sizes, rect}) => {
 
-  function marginTop() {
-    return rect.y;
-  }
-
-  function headerMarginTop() {
-    console.log(rect);
-    
-    return 0;
-    // if only 
-  }
 
   function headerStyle() {
     let style = { top: 0 };
@@ -39,7 +29,7 @@ const FixedColumn = ({columns, data, table_size, columns_sizes, rect}) => {
           </Table.Row>
         </Table.Header>
       </Table>
-      <div className='column-body' style={{marginTop: `${marginTop()}px`, width: `${table_size.entry.width}px`}}>
+      <div className='column-body' style={{marginTop: `${rect.y}px`, width: `${table_size.entry.width}px`}}>
         <Table striped unstackable>
           <Header columns={columns} onResize={() => {}}/>
           <Table.Body>
