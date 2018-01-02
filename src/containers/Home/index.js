@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import DataTable from '../DataTable';
 import faker from 'faker';
 
 import { Container } from 'semantic-ui-react';
+
+import DataTable from '../../components/DataTable';
 
 import './Home.css';
 
