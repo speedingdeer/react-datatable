@@ -18,7 +18,7 @@ class DataTable extends Component {
     super(props);
 
     this.state = {
-      colums_sizes: {}, // all columns sizes are initally unknown
+      columns_sizes: {}, // all columns sizes are initally unknown
       table_size: null, // unknown
       rect: null, // uknown
       rect_inner: null, // uknown
@@ -37,20 +37,17 @@ class DataTable extends Component {
   }
 
   fixed() {
-    // render when all sizes optained
-    if(this.props.columns && this.state.colums_sizes && 
-      this.props.columns.length === Object.keys(this.state.colums_sizes).length &&
+    // render when all sizes received
+    if(this.props.columns && this.state.columns_sizes && 
+      this.props.columns.length === Object.keys(this.state.columns_sizes).length &&
       this.state.table_size && this.state.table_size && this.state.rect &&this.state.rect_inner) {
-      // It might be better to actually pass the whole state if it actually passes all values, it depends on the convention I think
+
         return (
           <div>
-            <FixedHeader columns={this.props.columns} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} rect_inner={this.state.rect_inner}/>
+            <FixedHeader {...this.state} {...this.props}/>
+            {/* render the fixed column only if needed */}
             {this.state.rect.x !== this.state.rect_inner.x &&
-              <FixedColumn columns={this.props.columns} data={this.props.data} columns_sizes={this.state.colums_sizes} table_size={this.state.table_size} rect={this.state.rect} 
-                onRowEnter={this.onRowEnter}
-                onRowLeave={this.onRowLeave}
-                hovered={this.state.hovered}
-              />
+              <FixedColumn {...this.state} {...this.props} onRowEnter={this.onRowEnter} onRowLeave={this.onRowLeave}/>
             }
           </div>
         )
@@ -110,8 +107,8 @@ class DataTable extends Component {
   onColumnResize(data) {
     this.setState(
       Object.assign({}, this.state, {
-        colums_sizes: {
-          ...this.state.colums_sizes,
+        columns_sizes: {
+          ...this.state.columns_sizes,
           ...data
         }
       })
