@@ -24,7 +24,9 @@ class DataTable extends Component {
       table_size: null, // unknown
       rect: null, // uknown
       rect_inner: null, // uknown
-      hovered: HOVER_OUT // the indexed of hovered row - unknown by default
+      hovered: HOVER_OUT, // the indexed of hovered row - unknown by default
+      data: [],
+      columns: []
     };
 
     this.onColumnResize = this.onColumnResize.bind(this);
@@ -41,16 +43,16 @@ class DataTable extends Component {
   fixed() {
 
     // render when all sizes received
-    if(this.props.columns && this.state.columns_sizes && 
-      this.props.columns.length === Object.keys(this.state.columns_sizes).length &&
+    if(this.state.columns && this.state.columns_sizes && 
+      this.state.columns.length === Object.keys(this.state.columns_sizes).length &&
       this.state.table_size && this.state.table_size && this.state.rect && this.state.rect_inner) {
 
         return (
           <div>
-            <FixedHeader {...this.state} {...this.props}/>
+            <FixedHeader {...this.state} />
             {/* render the fixed column only if needed */}
             {this.state.rect.x !== this.state.rect_inner.x &&
-              <FixedColumn {...this.state} {...this.props} onRowEnter={this.onRowEnter} onRowLeave={this.onRowLeave}/>
+              <FixedColumn {...this.state}  onRowEnter={this.onRowEnter} onRowLeave={this.onRowLeave}/>
             }
           </div>
         )
@@ -60,6 +62,8 @@ class DataTable extends Component {
   render() {
     return (
       <div className='data-table' ref={(c) => this.elem = c}>
+
+
         {this.fixed()}
         {/* We need to know the table width otherwise can't set the fixed width for table */}
         <Measure entry onResize={this.onResize}>
@@ -73,11 +77,11 @@ class DataTable extends Component {
           */}
               <div ref={(c) => this.table = c}>
                 <Table striped unstackable>
-                  <Header columns={this.props.columns} onResize={this.onColumnResize}/>
+                  <Header columns={this.state.columns} onResize={this.onColumnResize}/>
                   <Table.Body>
-                    {this.props.data.map( (d, di) =>
+                    {this.state.data.map( (d, di) =>
                       <Row key={di}
-                        record={d} columns={this.props.columns} idx={di}
+                        record={d} columns={this.state.columns} idx={di}
                         onMouseEnter={this.onRowEnter}
                         onMouseLeave={this.onRowLeave}
                         hovered={this.state.hovered} />
@@ -136,13 +140,28 @@ class DataTable extends Component {
       this.elem.removeEventListener('scroll', this.onScroll.bind(this));
   }
 
+  componentWillReceiveProps(nextProps) {
+    let state = Object.assign({}, this.state, { ...nextProps })
+    let sort_field = (this.props.sort) ? this.props.sort : state.columns[0].attribute;
+    state.data = state.data.sort((a,b) => {
+      if (a[sort_field] <  b[sort_field]) {
+        return -1;
+      } if (a[sort_field] >  b[sort_field]) {
+        return 1;
+      }
+      return 0;
+    })
+    this.setState(state);
+  }
+
 }
 
 DataTable.propTypes = {
   columns: pt_columns.isRequired,
   // data can be any array of objects
   // it's fine if they are empty (will appear as empty row, but they can't be null or undefiend etc.)
-  data: PropTypes.arrayOf(PropTypes.object).isRequired
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  sort: PropTypes.string
 }
 
 export default DataTable;
