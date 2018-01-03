@@ -39,14 +39,17 @@ describe('The DataTable component', () => {
       data_table.setState(state_completed);
       expect(data_table.find('.fixed-header').length).toBe(1)
     });
+
     it ('The DataTable should render not render the fixed column if not scrolled vertically.', () => {
       data_table.setState(state_completed);
       expect(data_table.find('.fixed-column').length).toBe(0)
     });
+
     it ('The DataTable should render not render the fixed column if scrolled vertically.', () => {
       let inner = Object.assign({}, state_completed.rect_inner) // clone
       inner.x -= 10; // scrolled
       data_table.setState(Object.assign({}, state_completed, { rect_inner: inner }));
       expect(data_table.find('.fixed-column').length).toBe(1)
     });
+
 })
