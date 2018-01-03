@@ -28,28 +28,40 @@ describe('The DataTable component', () => {
     }
 
     beforeEach(() => {
-        data_table = mount(<DataTable {...data}/>);
+      data_table = mount(<DataTable {...data}/>);
     });
 
-    it('The DataTable should NOT render the FixedHeader if NOT size data provided.', () => {
+    it('should NOT render the FixedHeader if NOT size data provided.', () => {
         expect(data_table.find('.fixed-header').length).toBe(0)
     });
     
-    it ('The DataTable should render the FixedHeader if size data provided.', () => {
+    it('should render the FixedHeader if size data provided.', () => {
       data_table.setState(state_completed);
       expect(data_table.find('.fixed-header').length).toBe(1)
     });
 
-    it ('The DataTable should render not render the fixed column if not scrolled vertically.', () => {
+    it('should render NOT render the fixed column if not scrolled vertically.', () => {
       data_table.setState(state_completed);
       expect(data_table.find('.fixed-column').length).toBe(0)
     });
 
-    it ('The DataTable should render not render the fixed column if scrolled vertically.', () => {
+    it('should render NOT render the fixed column if scrolled vertically.', () => {
       let inner = Object.assign({}, state_completed.rect_inner) // clone
       inner.x -= 10; // scrolled
       data_table.setState(Object.assign({}, state_completed, { rect_inner: inner }));
       expect(data_table.find('.fixed-column').length).toBe(1)
+    });
+
+    it('should NOT displayed fixed header if content not scolled over', () => {
+      data_table.setState(state_completed);
+      expect(data_table.find('.fixed-header').get(0).props.style.display).toBe('none')
+    });
+
+    it('should displayed fixed header if content scolled over', () => {
+      let rect = Object.assign({}, state_completed.rect) // clone
+      rect.top = -1;
+      data_table.setState(Object.assign({}, state_completed, { rect }));
+      expect(data_table.find('.fixed-header').get(0).props.style.display).not.toBe('none')
     });
 
 })
