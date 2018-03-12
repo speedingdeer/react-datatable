@@ -23,12 +23,12 @@ class Home extends Component {
         <p> There are two demos provided: </p>
         <List bulleted>
           <List.Item>
-            <Link to='/demo-full-screen'>
+            <Link to={`${process.env.PUBLIC_URL}/demo-full-screen`}>
               Full Screen Data Table
             </Link>
           </List.Item>
           <List.Item>
-            <Link to='/demo'>
+            <Link to={`${process.env.PUBLIC_URL}/demo`}>
               Data Table withing its parent container
             </Link>
           </List.Item>
