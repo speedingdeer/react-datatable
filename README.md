@@ -1,5 +1,5 @@
 # react-datatable
-React DataTable [Demo](http://speedingdeer.github.io/react-datatable)
+React DataTable **[Demo](http://speedingdeer.github.io/react-datatable)**
 First column and header fixed.
 
 
