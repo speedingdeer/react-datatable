@@ -1,11 +1,13 @@
 {
-  "name": "speedindeer-datatable",
+  "name": "react-datatable",
   "version": "0.1.0",
   "private": false,
+  "homepage": "http://speedingdeer.github.io/react-datatable",
   "dependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "faker": "^4.1.0",
+    "gh-pages": "^1.1.0",
     "jest-enzyme": "^4.0.2",
     "node-sass-chokidar": "^0.0.3",
     "npm-run-all": "^4.1.2",
@@ -27,6 +29,8 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
