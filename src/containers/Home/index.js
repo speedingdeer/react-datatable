@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { Container, List, Image } from 'semantic-ui-react';
 
-import logo from '../../images/trecker.png';
+import logo from '../../images/logo.png';
 
 import './Home.css';
 
@@ -17,7 +17,7 @@ class Home extends Component {
         <Image src={logo} size='small'/>
         </h2>
         <h2>
-          Trecker Coding Challange
+          Speedindeer DataTable
         </h2>
         <Container text>
         <p> There are two demos provided: </p>

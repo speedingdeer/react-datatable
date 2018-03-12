@@ -7,22 +7,22 @@ export function fakeData() {
       label: 'Name'
     }, {
       attribute: 'cultivation_id',
-      label: 'Nummer'
+      label: 'Number'
     }, {
       attribute: 'company_name',
-      label: 'Betrieb'
+      label: 'Company'
     }, {
       attribute: 'area_in_hectares',
-      label: 'Fläche'
+      label: 'Area'
     }, {
       attribute: 'active',
-      label: 'Aktiv'
+      label: 'Aktive'
     }, {
       attribute: 'crop_name',
-      label: 'Kultur'
+      label: 'Crop Name'
     }, {
       attribute: 'harvest_year',
-      label: 'Ernte'
+      label: 'Year'
     }],
     data: Array(50 + faker.random.number(50)).fill().map((_, i) => { return {
       field_name: faker.name.findName(),
